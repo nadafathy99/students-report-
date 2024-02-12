@@ -1,0 +1,75 @@
+<app-message
+  *ngIf="errorMessagedetail"
+  type="error"
+  [detail]="errorMessagedetail"
+></app-message>
+<app-card
+  title="Upload Excel File for a Students' Grades Report"
+  content="
+    You can upload an Excel file here, and our system will process it to generate a detailed report of students' grades. 
+    Please note that the excel file should contain the following columns: Student ID, Name, Learning Objective, Score, Subject"
+>
+  <app-uploader
+    acceptedFileTypes=".xlsx, .xls, .csv"
+    (selcetedFile)="uploadFile($event)"
+  ></app-uploader>
+</app-card>
+<ng-container
+  *ngIf="!errorMessagedetail && (studentInfoChanges | async) as studentInfo"
+>
+  <p-table
+    *ngIf="studentInfo.length"
+    #table
+    [value]="studentInfo"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 30, 50, 100]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" class="equal-width-column">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="subject" class="equal-width-column">
+          Subject <p-sortIcon field="subject"></p-sortIcon>
+        </th>
+        <th class="equal-width-column">Learning Objective</th>
+        <th class="equal-width-column">Score</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-student>
+      <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.subject }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let score of student.scores">
+              <span
+                class="learning_objective"
+                [ngClass]="{
+                  excellent: score.gradeStatus === 'Excellent',
+                  fail: score.gradeStatus === 'Fail'
+                }"
+              >
+                {{ score.learning_objective }}
+              </span>
+            </li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li *ngFor="let score of student.scores">
+              <span>{{ score.score }} </span>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <app-card
+    *ngIf="studentInfo.length === 0"
+    content="There are no current records in the selected file."
+  ></app-card>
+</ng-container>

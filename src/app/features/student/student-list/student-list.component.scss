@@ -1,0 +1,28 @@
+:host ::ng-deep .p-card .p-card-body {
+  margin-bottom: var(--small);
+}
+td ul {
+  padding: 0;
+  li {
+    list-style: none;
+    span {
+      display: inline-block;
+      padding: var(--small);
+      margin-bottom: var(--extra-small);
+      &.learning_objective {
+        width: var(--extra-large);
+        border-radius: var(--small);
+      }
+      &.excellent {
+        background-color: var(--color-green-light);
+      }
+      &.fail {
+        background-color: var(--color-red-light);
+      }
+    }
+  }
+}
+
+tr th.equal-width-column {
+  width: 25%;
+}

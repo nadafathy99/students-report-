@@ -1,0 +1,9 @@
+<p-fileUpload
+  #fileUploader
+  mode="basic"
+  [accept]="acceptedFileTypes"
+  [maxFileSize]="1000000"
+  (onSelect)="onSelect($event, fileUploader)"
+  chooseLabel="Browse"
+></p-fileUpload>
+<div class="accepted-types">Accepted types are: {{ acceptedFileTypes }}</div>
