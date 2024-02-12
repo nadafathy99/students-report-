@@ -5,6 +5,7 @@ This Angular application provides a front-end for uploading an Excel file contai
 - Uploads an Excel file.
 - Communicates with a Node.js backend for processing.
 - Displays a user-friendly report of student scores.
+- Background color for the highest and the lowest grades.
 
 ## Pre-requisites
 
@@ -19,10 +20,10 @@ correct version whenever switching between projects.
 
 ## Getting Started
 
-npm i
-npm start
+- npm i
+- npm start
 
 ## API Servers
 
-npm i
-npm serve
+- npm i
+- npm serve
