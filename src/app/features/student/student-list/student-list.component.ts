@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
@@ -6,6 +6,7 @@ import { StudentService } from 'src/app/services/student.service';
 import {
   BehaviorSubject,
   EMPTY,
+  Observable,
   catchError,
   map,
   of,
@@ -14,6 +15,7 @@ import {
 } from 'rxjs';
 import { CardComponent } from 'src/app/shared/card/card.component';
 import { MessageComponent } from 'src/app/shared/message/message.component';
+import { BreakpointsService } from 'src/app/services/breakpoints.service';
 
 @Component({
   selector: 'app-student-list',
@@ -30,6 +32,11 @@ import { MessageComponent } from 'src/app/shared/message/message.component';
 })
 export class StudentListComponent {
   private studentService = inject(StudentService);
+
+  private breakPointsService = inject(BreakpointsService);
+
+  public isXSmallScreen = this.breakPointsService.isXSmallChanges;
+  public isSmallScreen = this.breakPointsService.isSmallChanges;
 
   public errorMessagedetail = '';
   private studentsInfoSubject = new BehaviorSubject<FormData | null>(null);

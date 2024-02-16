@@ -10,6 +10,10 @@
     Please note that the excel file should contain the following columns: Student ID, Name, Learning Objective, Score, Subject"
 >
   <app-uploader
+    *ngIf="
+      !(isXSmallScreen | async) && !(isSmallScreen | async);
+      else smallScreensMessage
+    "
     acceptedFileTypes=".xlsx, .xls, .csv"
     (selcetedFile)="uploadFile($event)"
   ></app-uploader>
@@ -73,3 +77,8 @@
     content="There are no current records in the selected file."
   ></app-card>
 </ng-container>
+
+<ng-template #smallScreensMessage
+  >I'm trying the breakpoints service, Please use a larger screen to show the
+  uploader! :)
+</ng-template>
